@@ -6,7 +6,6 @@ public class BowlingGame {
     private List<Integer> prevScore = new ArrayList<Integer>();
     private int currentRoll = 0;
     private int currentFrame;
-    private boolean isFirstRollForCurrentFrame=true;
     public void roll(int pins) {
         prevScore.add(pins);
     }
@@ -14,41 +13,30 @@ public class BowlingGame {
     public int getScore() {
         currentFrame = 0;
         while (currentFrame < 10) {
+            rollScore = rollScore + prevScore.get(currentRoll);
             if (isStrike()) {
                 rollScore = rollScore + prevScore.get(currentRoll + 1) + prevScore.get(currentRoll + 2);
-                currentFrame++;
             }
-           else if (isSpare()) {
+            else if (isSpare()) {
+                rollScore = rollScore + prevScore.get(currentRoll + 1) + prevScore.get(currentRoll + 2);
+                currentRoll++;
+            }
+            else {
                 rollScore = rollScore + prevScore.get(currentRoll + 1);
-                currentFrame++;
-            }
-           else {
-                rollScore = rollScore + prevScore.get(currentRoll);
-                if(isFirstRollForCurrentFrame) {
-                    isFirstRollForCurrentFrame=false;
-                }
-                else{
-                    isFirstRollForCurrentFrame=true;
-                    currentFrame++;
-                }
+                currentRoll++;
             }
             currentRoll++;
+            currentFrame++;
         }
         return rollScore;
     }
 
     private boolean isStrike() {
-        if (currentRoll < prevScore.size() - 2) {
-            return prevScore.get(currentRoll) == 10;
-        }
-        return false;
+        return prevScore.get(currentRoll) == 10;
     }
 
     private boolean isSpare() {
-        if (currentRoll > 0 && currentRoll < prevScore.size() - 1) {
-            return prevScore.get(currentRoll) + (int) prevScore.get(currentRoll - 1) == 10;
-        }
-        return false;
+        return prevScore.get(currentRoll) + prevScore.get(currentRoll + 1) == 10;
     }
 
 }
