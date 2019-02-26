@@ -5,39 +5,36 @@ public class BowlingGame {
     private int rollScore;
     private List<Integer> prevScore = new ArrayList<Integer>();
     private int currentRoll = 0;
-    private int currentFrame = 0;
-
+    private int currentFrame;
+    private boolean isFirstRollForCurrentFrame=true;
     public void roll(int pins) {
         prevScore.add(pins);
     }
 
     public int getScore() {
-
+        currentFrame = 0;
         while (currentFrame < 10) {
-            rollScore = rollScore + prevScore.get(currentRoll);
-            if (isSpare()) {
-                handleSpare();
+            if (isStrike()) {
+                rollScore = rollScore + prevScore.get(currentRoll + 1) + prevScore.get(currentRoll + 2);
+                currentFrame++;
             }
-
-            else if (isStrike()) {
-                handleStrike();
+           else if (isSpare()) {
+                rollScore = rollScore + prevScore.get(currentRoll + 1);
+                currentFrame++;
             }
-
-            else {
-
+           else {
+                rollScore = rollScore + prevScore.get(currentRoll);
+                if(isFirstRollForCurrentFrame) {
+                    isFirstRollForCurrentFrame=false;
+                }
+                else{
+                    isFirstRollForCurrentFrame=true;
+                    currentFrame++;
+                }
             }
-
             currentRoll++;
         }
-
         return rollScore;
-    }
-
-    private void handleStrike() {
-        if (isStrike()) {
-            rollScore = rollScore + prevScore.get(currentRoll + 1) + prevScore.get(currentRoll + 2);
-            currentFrame++;
-        }
     }
 
     private boolean isStrike() {
@@ -45,14 +42,6 @@ public class BowlingGame {
             return prevScore.get(currentRoll) == 10;
         }
         return false;
-    }
-
-    private void handleSpare() {
-        if (isSpare()) {
-            rollScore = rollScore + prevScore.get(currentRoll + 1)*2;
-            currentFrame++;
-            currentRoll++;
-        }
     }
 
     private boolean isSpare() {
