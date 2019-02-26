@@ -22,7 +22,7 @@ public class BowlingGame {
                 currentRoll++;
             }
             else {
-                rollScore = rollScore + prevScore.get(currentRoll + 1);
+                rollScore = rollScore + prevScore.get(currentRoll + 2);
                 currentRoll++;
             }
             currentRoll++;

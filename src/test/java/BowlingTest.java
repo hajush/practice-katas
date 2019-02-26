@@ -80,7 +80,7 @@ public class BowlingTest {
         assertEquals(49, bowlingGame.getScore());
 
     }
-    @Ignore
+
     @Test
     public void perfectGame() {
         for (int i = 0; i < 12; i++) {
