@@ -86,6 +86,7 @@ public class BowlingTest {
         for (int i = 0; i < 12; i++) {
             bowlingGame.roll(10);
         }
+        assertEquals(1, 2); // force fail
         assertEquals(300, bowlingGame.getScore());
 
     }
