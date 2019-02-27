@@ -3,6 +3,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class BowlingTest {
 
@@ -82,13 +83,13 @@ public class BowlingTest {
     }
 
     @Test
-    public void perfectGame() {
+    public void perfectGame() throws Exception {
         for (int i = 0; i < 12; i++) {
             bowlingGame.roll(10);
         }
-        assertEquals(1, 2); // force fail
         assertEquals(300, bowlingGame.getScore());
-
+        Thread.sleep(120000);
+        fail("forcing a failure to test project-monitor");
     }
 
 }
