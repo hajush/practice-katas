@@ -88,8 +88,6 @@ public class BowlingTest {
             bowlingGame.roll(10);
         }
         assertEquals(300, bowlingGame.getScore());
-        Thread.sleep(5 * 60 * 1000);
-        fail("forcing a failure to test project-monitor");
     }
 
 }
